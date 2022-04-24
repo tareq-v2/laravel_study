@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class item_info extends Model
 {
     use HasFactory;
+    protected $fillable= ['title', 'icon'];
 }

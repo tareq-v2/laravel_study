@@ -1,0 +1,18 @@
+
+
+
+1.  if i want to update admin info then below error show me,
+    (Property [id] does not exist on this collection instance.)
+
+
+2.  Category update doesn't work and i can't get any kind of error.
+
+
+3.  Item info update also!
+
+
+4.  In Category update form our item data doesn't show properly.
+
+
+5.  My all validation message show not perfectly.
+

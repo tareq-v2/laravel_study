@@ -15,7 +15,8 @@ class adminController extends Controller
      */
     public function index()
     {
-        return '0';
+        $data = create_admin::all();
+        return view('Backend.admin.index', compact('data'));
     }
 
     /**
@@ -69,7 +70,8 @@ class adminController extends Controller
      */
     public function edit($id)
     {
-        return '4';
+        $info = create_admin::where('id',$id)->first();
+        return view('Backend.admin.edit', compact('info'));
     }
 
     /**
@@ -81,7 +83,28 @@ class adminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return '5';
+
+        // return $request->all();
+        if($request->password !=null)
+        {
+            $request->validate([
+                'email' => 'required',
+                'phone' => 'required',
+                'password' => 'required|min:3|max:8',
+                'confirm_password' => 'required_with:password|same:password',
+            ]);
+
+            $request['password']=Hash::make($request->password);
+            create_admin::where('id',$id)->update($request->except('_method','confirm_password'));
+        }else{
+            $request->validate([
+                'email' => 'required',
+                'phone' => 'required',
+            ]);
+            create_admin::where('id',$id)->update($request->except('_method','confirm_password','password'));
+        }
+
+        return redirect()->back()->with('msg','update successfully done');
     }
 
     /**
@@ -92,6 +115,7 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        return '6';
+        create_admin::find($id)->delete();
+        return redirect()->back();
     }
 }

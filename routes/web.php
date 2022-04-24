@@ -34,6 +34,8 @@ Route::post('/admin-login', [backController::class, 'login']);
 
 
 
+
+
 // Group route for admin
 
 Route::group(['middleware' => 'adminAuth'], function(){
@@ -44,7 +46,20 @@ Route::group(['middleware' => 'adminAuth'], function(){
 
     Route::resource('/admin-info', adminController::class);  // Resource route for admin configuration
 
+    Route::resource('/item-info', itemController::class);
+
+    Route::resource('/category-info', categoryController::class);
+
+    Route::resource('/product-info', productController::class);
+
 });
+
+
+
+
+
+
+
 
 
     // Below route for controller route. Here we define all single route for single task.

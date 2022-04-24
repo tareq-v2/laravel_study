@@ -15,7 +15,7 @@ class CreateCategoryInfosTable extends Migration
     {
         Schema::create('category_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->integer('sl');
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('item_infos');
             $table->string('category_name');

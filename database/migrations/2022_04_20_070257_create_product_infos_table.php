@@ -17,12 +17,12 @@ class CreateProductInfosTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('item_infos');
+            $table->foreign('item_id')->references('id')->on('item_infos'); // For join Table
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('category_infos');
+            $table->foreign('category_id')->references('id')->on('category_infos'); // For join Table
             $table->string('price');
             $table->string('old_price');
-
+            $table->string('image');
             $table->timestamps();
         });
     }

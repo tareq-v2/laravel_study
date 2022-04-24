@@ -34,8 +34,7 @@ class HomeController extends Controller
     }
 
     public function showProduct(){
-        $data = null;
-        return view('Frontend.Layouts.Home', compact('data'));
+        return view('Frontend.Layouts.Home');
     }
 
     public function latestOffer(){

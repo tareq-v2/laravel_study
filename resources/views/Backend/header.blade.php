@@ -101,14 +101,9 @@
 						<div class="accordion-body">
 							<div class="accordion-body" style="background: #6D747A;">
 								<ul>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/addProduct') }}" target="framebody">Add product</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/addItems') }}" target="framebody">Add Items</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/item-info') }}" target="framebody">View Items Resource</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/item-info') }}/create" target="framebody">Create Items Resource</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/addCategory') }}" target="framebody">Add Category</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="addsubcategory.html" target="framebody">Add Sub-Category</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="addslider.html" target="framebody">Add Slider</a></li>
-									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="addsideimg.html" target="framebody">Add Side Image</a></li>
+									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/product-info/create') }}">Add product</a></li>
+									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/item-info/create') }}">Add Items</a></li>
+									<li><i class="fab fa-product-hunt"></i><a href="#">&nbsp;&nbsp;<a href="{{ url('/category-info/create') }}">Add Category</a></li>
 								</ul>
 							</div>
 						</div>
