@@ -6,6 +6,7 @@
         <td>Product Name</td>
         <td>Product Price</td>
         <td>Product Old Price</td>
+        <td>Image</td>
         <td>Action</td>
     </tr>
     @if ($data)
@@ -18,11 +19,19 @@
         <td>{{ $showdata->price }}</td>
         <td>{{ $showdata->old_price }}</td>
         <td>
-            <button class="btn btn-sm btn-danger">
-                <a href="{{ url('/product-info/destroy') }}">
-                    Delete
-                </a>
-            </button>
+            <img src="{{ asset('/Backend/productImage/'.$showdata->image) }}" width="200" height="100">
+        </td>
+        <td>
+            <a class="btn btn-sm btn-success" href="{{ url('/product-info') }}/{{ $showdata->id }}/edit">Edit</a>
+            <span>
+                <form action="{{ url('/product-info') }}/{{ $showdata->id }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger btn-sm" onclick="confirm('Are you sure to delete this?')">
+                        Delete
+                    </button>
+                </form>
+            </span>
         </td>
     </tr>
     @endforeach

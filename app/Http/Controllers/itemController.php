@@ -50,7 +50,7 @@ class itemController extends Controller
             $img_name = $data->id.'.'.$file->getClientOriginalExtension();
             $path = '/Backend/ItemImage';
             $file->move(public_path($path), $img_name);
-            item_info::where('id',$data->id)->update(['icon'=>$img_name]);
+            item_info::where('id',$data->id)->update(['icon'=> $img_name]);
         }
 
         return redirect()->back()->with('success', 'item info add success');
@@ -77,7 +77,7 @@ class itemController extends Controller
      */
     public function edit($id)
     {
-        $data = item_info::findOrFail($id);
+        $data = item_info::where('id', $id)->first();
         return view('Backend.item.edit', compact('data'));
     }
 
@@ -91,34 +91,38 @@ class itemController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'sl' => 'required',
-            'title' => 'required'
+            'title' => 'required',
         ]);
 
-       $insert = item_info::find($id)->update($request->except('_token', 'image'));
+       $insert = item_info::where('id', $id)->update($request->except('_method', '_token', 'image'));
 
        $file = $request->file('image');
 
-       if($file){
-        $pathImage = item_info::findOrFail($id);
+       if($file)
+       {
+        // $pathImage = item_info::findOrFail($id);
 
-        $path = base_path().'/public'.$pathImage->image;
-
-        if(file_exists($path)){
-            unlink($path);
+        $pathImage = item_info::where('id', $id)->first();
+        $image = public_path().'/Backend/ItemImage/'.$pathImage->icon;
+        if($pathImage->icon){
+            // return $image;
+            unlink($image);
         }
 
-        $image_name = $insert->id.'.'.$file->getClientOriginalExtension();
+        // if(file_exists($image)){
 
-        $path = '/Backend/ItemImage';
+        // }
 
-        $file->move(public_path($path), $image_name);
+        $image_name = $id.'.'.$file->getClientOriginalExtension();
 
-        item_info::where('id', $id)->update(['icon' => $image_name]);
+         $path = '/Backend/ItemImage';
 
+         $file->move(public_path($path), $image_name);
+
+         item_info::where('id', $id)->update(['icon' => $image_name]);
        }
 
-       return redirect()->back()->with('success', 'item info update success');
+       return redirect()->back()->with('msg', 'item info update success');
 
     }
 
@@ -130,6 +134,13 @@ class itemController extends Controller
      */
     public function destroy($id)
     {
+        $pathImage = item_info::where('id', $id)->first();
+        $image = public_path().'/Backend/ItemImage/'.$pathImage->icon;
+        if($pathImage->icon){
+            // return $image;
+            unlink($image);
+        }
+
         item_info::where('id',$id)->delete();
         return redirect()->back();
     }

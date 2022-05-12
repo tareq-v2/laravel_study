@@ -10,7 +10,7 @@
         </div>
         <form action="{{ url('/item-info') }}/{{ $data->id }}" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('patch')
             <div class="row">
                 <div class="col-2">
                     <label for="item_name">Item Name</label>
@@ -24,16 +24,16 @@
                     <label>Icon</label>
                 </div>
                 <div class="col-10">
-                    <input type="file" class="filestyle" name="image" accept="image/*" />
+                    <input type="file" class="filestyle" name="image"/>
                 </div>
             </div>
             <span>
-                <img src="{{ asset('/Backend/ItemImage/'.$data->icon) }}" width="200" height="150">
+                <img src="{{ asset('/Backend/ItemImage/'.$data->icon) }}" width="200" height="100">
             </span>
             <div class="row">
                 <div class="col-12" style="text-align: center;">
                     <button class="btn btn-warning" type="submit">
-                        <a href="{{ url('item-info') }}">Update</a>
+                        Update
                     </button>
                 </div>
             </div>

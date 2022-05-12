@@ -65,7 +65,7 @@ class productController extends Controller
         }
 
 
-        return redirect()->back()->with('success', 'product data add Successfull');
+        return redirect()->back()->with('msg', 'product data add Successfull');
     }
 
     /**
@@ -87,7 +87,10 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = product_info::where('id',$id)->first();
+        $category = category_info::all();
+        $item = item_info::all();
+        return view('Backend.product.edit', compact('product', 'category', 'item'));
     }
 
     /**
@@ -99,7 +102,32 @@ class productController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'item_id' => 'required',
+            'category_id' => 'required',
+            'old_price' => 'required',
+        ]);
+
+        $insert = product_info::where('id', $id)->update($request->except('_method', '_token', 'image'));
+
+        $file = $request->file('image');
+
+        if($file){
+            $pathImage = product_info::where('id', $id)->first();
+            $image1 = '/public/Backend/productImage/'.$pathImage->image;
+            unlink($image1);
+        }
+        $image_name = $insert->id.'.'.$file->getClientOriginalExtension();
+
+        $path = '/public/Backend/productImage';
+
+        $file->move(public_path($path), $image_name);
+
+        product_info::where('id', $id)->update(['image' => $image_name]);
+
+        return redirect()->back()->with('msg', 'Product info update success');
     }
 
     /**
@@ -110,6 +138,7 @@ class productController extends Controller
      */
     public function destroy($id)
     {
-        //
+        product_info::where('id', $id)->delete();
+        return redirect()->back()->with('msg', 'Delete This Product Success');
     }
 }

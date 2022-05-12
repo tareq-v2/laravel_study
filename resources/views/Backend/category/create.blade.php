@@ -18,7 +18,7 @@
                     <label>SL</label>
                 </div>
                 <div class="col-10">
-                    <input type="number" class="form-control" name="sl" value="{{ old('title') }}">
+                    <input type="number" class="form-control" name="sl" value="{{ old('sl') }}">
                 </div>
             </div>
             <div class="row">

@@ -57,7 +57,7 @@ class categoryController extends Controller
                 ['icon' => $img_name]
             );
 
-            return redirect()->back()->with('success', 'Category add success');
+            return redirect()->back()->with('msg', 'Category add success');
         }
 
 
@@ -96,7 +96,33 @@ class categoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'sl' => 'required',
+            'item_id' => 'required',
+            'category_name' => 'required'
+        ]);
+
+        $data = category_info::where('id',$id)->update($request->except('_method','_token','icon'));
+
+        $file = $request->file('icon');
+
+        if($file)
+        {
+          $chkimg =  category_info::where('id',$id)->pluck('icon')->first();
+          if($chkimg){
+              $image = public_path().'/Backend/categoryImage/'.$chkimg;
+              unlink($image);
+          }
+            $img_name = $id.'.'.$file->getClientOriginalExtension();
+            $path = '/Backend/categoryImage';
+            $file->move(public_path($path), $img_name);
+            category_info::where('id', $id)->update(
+                ['icon' => $img_name]
+            );
+
+        }
+        return redirect()->back()->with('msg', 'Category add success');
+
     }
 
     /**
@@ -107,6 +133,11 @@ class categoryController extends Controller
      */
     public function destroy($id)
     {
+          $chkimg =  category_info::where('id',$id)->pluck('icon')->first();
+          if($chkimg){
+              $image = public_path().'/Backend/categoryImage/'.$chkimg;
+              unlink($image);
+          }
         category_info::where('id', $id)->delete();
         return redirect()->back();
     }

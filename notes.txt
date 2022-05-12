@@ -1,0 +1,4 @@
+
+@for check user is active or not
+
+'is_active'=>isset($request->is_active)?1:0

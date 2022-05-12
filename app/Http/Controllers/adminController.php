@@ -94,7 +94,7 @@ class adminController extends Controller
                 'confirm_password' => 'required_with:password|same:password',
             ]);
 
-            $request['password']=Hash::make($request->password);
+            $request['password'] = Hash::make($request->password);
             create_admin::where('id',$id)->update($request->except('_method','confirm_password'));
         }else{
             $request->validate([

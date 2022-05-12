@@ -12,6 +12,7 @@ class category_info extends Model
         'title',
         'name',
         'item_id',
+        'sl',
         'icon',
         'category_name'
     ];
